@@ -30,7 +30,7 @@ def create_book():
     }
 
     inserted = collection.insert_one(new_book)
-    new_book["_id"] = str(inserted.inserted_id)  # Convert ObjectId to string
+    new_book["_id"] = str(inserted.inserted_id)  
     return jsonify(new_book), 201
 
 # Read (GET) operation - Get all books
@@ -38,7 +38,7 @@ def create_book():
 def get_all_books():
     books = list(collection.find({}, {"_id": 1, "title": 1, "author": 1, "image_url": 1}))
     for book in books:
-        book["_id"] = str(book["_id"])  # Convert ObjectId to string
+        book["_id"] = str(book["_id"])  
     return jsonify({"books": books})
 
 # Read (GET) operation - Get a specific book by ID
@@ -46,7 +46,7 @@ def get_all_books():
 def get_book(book_id):
     book = collection.find_one({"_id": ObjectId(book_id)})
     if book:
-        book["_id"] = str(book["_id"])  # Convert ObjectId to string
+        book["_id"] = str(book["_id"])  
         return jsonify(book)
     else:
         return jsonify({"error": "Book not found"}), 404
